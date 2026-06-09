@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Professional Quote Of The Day App</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#0f172a,#111827,#1e293b);
+    padding:20px;
+    overflow-x:hidden;
+}
+
+.container{
+    width:100%;
+    max-width:1000px;
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.12);
+    backdrop-filter:blur(20px);
+    border-radius:30px;
+    padding:35px;
+    position:relative;
+    overflow:hidden;
+    box-shadow:0 15px 40px rgba(0,0,0,0.5);
+}
+
+.container::before{
+    content:"";
+    position:absolute;
+    width:250px;
+    height:250px;
+    background:#00e5ff;
+    border-radius:50%;
+    top:-120px;
+    left:-120px;
+    opacity:0.15;
+}
+
+.container::after{
+    content:"";
+    position:absolute;
+    width:250px;
+    height:250px;
+    background:#ff0080;
+    border-radius:50%;
+    bottom:-120px;
+    right:-120px;
+    opacity:0.15;
+}
+
+.title{
+    text-align:center;
+    position:relative;
+    z-index:2;
+    margin-bottom:25px;
+}
+
+.title h1{
+    font-size:42px;
+    color:#00e5ff;
+    text-shadow:0 0 15px rgba(0,229,255,0.5);
+}
+
+.title p{
+    color:#cbd5e1;
+    margin-top:10px;
+    font-size:16px;
+}
+
+.quote-box{
+    background:rgba(255,255,255,0.08);
+    border-radius:25px;
+    padding:45px;
+    position:relative;
+    overflow:hidden;
+    transition:0.4s;
+    z-index:2;
+}
+
+.quote-box:hover{
+    transform:translateY(-5px) scale(1.01);
+}
+
+.quote-icon{
+    position:absolute;
+    font-size:70px;
+    color:#00e5ff;
+    opacity:0.2;
+    top:15px;
+    left:25px;
+}
+
+.quote{
+    font-size:30px;
+    color:white;
+    text-align:center;
+    line-height:1.8;
+    margin-top:20px;
+    font-weight:500;
+    animation:fade 0.5s ease;
+}
+
+.author{
+    text-align:right;
+    margin-top:25px;
+    font-size:20px;
+    color:#00ffb7;
+    font-weight:600;
+}
+
+@keyframes fade{
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.buttons{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:15px;
+    margin-top:30px;
+    margin-bottom:30px;
+    position:relative;
+    z-index:2;
+}
+
+button{
+    border:none;
+    outline:none;
+    padding:14px 22px;
+    border-radius:14px;
+    cursor:pointer;
+    font-size:15px;
+    font-weight:600;
+    transition:0.3s;
+    color:white;
+}
+
+.new-btn{
+    background:linear-gradient(45deg,#00e5ff,#007cf0);
+}
+
+.save-btn{
+    background:linear-gradient(45deg,#00ff99,#00c853);
+}
+
+.share-btn{
+    background:linear-gradient(45deg,#ff9800,#ff5722);
+}
+
+.copy-btn{
+    background:linear-gradient(45deg,#ff0080,#7928ca);
+}
+
+.theme-btn{
+    background:linear-gradient(45deg,#ffffff,#d1d5db);
+    color:black;
+}
+
+button:hover{
+    transform:translateY(-4px) scale(1.05);
+    box-shadow:0 10px 20px rgba(0,0,0,0.4);
+}
+
+.category-section{
+    margin-top:10px;
+    margin-bottom:30px;
+    text-align:center;
+    position:relative;
+    z-index:2;
+}
+
+.category-section h2{
+    color:#00e5ff;
+    margin-bottom:20px;
+    font-size:28px;
+}
+
+.categories{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:15px;
+}
+
+.category-btn{
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.12);
+    backdrop-filter:blur(10px);
+}
+
+.category-btn:hover{
+    background:linear-gradient(45deg,#00e5ff,#007cf0);
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:15px;
+    margin-bottom:30px;
+    position:relative;
+    z-index:2;
+}
+
+.card{
+    background:rgba(255,255,255,0.08);
+    border-radius:20px;
+    padding:20px;
+    text-align:center;
+    color:white;
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+.card h2{
+    color:#00e5ff;
+    margin-bottom:10px;
+}
+
+.favorites{
+    margin-top:20px;
+    position:relative;
+    z-index:2;
+}
+
+.favorites h2{
+    color:#00e5ff;
+    margin-bottom:20px;
+}
+
+.favorite-list{
+    max-height:300px;
+    overflow-y:auto;
+    padding-right:10px;
+}
+
+.favorite-item{
+    background:rgba(255,255,255,0.08);
+    padding:18px;
+    border-radius:18px;
+    margin-bottom:15px;
+    animation:slide 0.5s ease;
+}
+
+.favorite-item p{
+    color:white;
+    line-height:1.7;
+}
+
+.favorite-item small{
+    color:#00ffb7;
+}
+
+.delete-btn{
+    margin-top:12px;
+    background:red;
+    padding:8px 15px;
+    font-size:13px;
+}
+
+.footer{
+    text-align:center;
+    margin-top:30px;
+    color:#cbd5e1;
+    font-size:14px;
+    position:relative;
+    z-index:2;
+}
+
+.light-mode{
+    background:linear-gradient(135deg,#e0f7fa,#ffffff,#dbeafe);
+}
+
+.light-mode .container{
+    background:rgba(255,255,255,0.75);
+}
+
+.light-mode .quote,
+.light-mode .favorite-item p{
+    color:black;
+}
+
+.light-mode .title p,
+.light-mode .footer{
+    color:#374151;
+}
+
+@keyframes slide{
+    from{
+        opacity:0;
+        transform:translateX(-20px);
+    }
+    to{
+        opacity:1;
+        transform:translateX(0);
+    }
+}
+
+::-webkit-scrollbar{
+    width:8px;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#00e5ff;
+    border-radius:20px;
+}
+
+@media(max-width:768px){
+
+    .quote{
+        font-size:22px;
+    }
+
+    .title h1{
+        font-size:32px;
+    }
+
+    button{
+        width:100%;
+    }
+
+    .quote-box{
+        padding:30px;
+    }
+
+}
+
+</style>
+</head>
+
+<body id="body">
+
+<div class="container">
+
+    <div class="title">
+        <h1>✨ Quote Of The Day ✨</h1>
+        <p>Daily inspiration for a successful and positive life</p>
+    </div>
+
+    <div class="quote-box">
+
+        <div class="quote-icon">❝</div>
+
+        <div class="quote" id="quote">
+            “Life is what happens when you're busy making other plans.”
+        </div>
+
+        <div class="author" id="author">
+            — John Lennon
+        </div>
+
+    </div>
+
+    <div class="buttons">
+
+        <button class="new-btn" onclick="newQuote()">✨ New Quote</button>
+
+        <button class="save-btn" onclick="saveFavorite()">⭐ Save</button>
+
+        <button class="share-btn" onclick="shareQuote()">📤 Share</button>
+
+        <button class="copy-btn" onclick="copyQuote()">📋 Copy</button>
+
+        <button class="theme-btn" onclick="toggleTheme()">🌙 Theme</button>
+
+    </div>
+
+    <div class="category-section">
+
+        <h2>📚 Select Quote Category</h2>
+
+        <div class="categories">
+
+            <button class="category-btn" onclick="filterQuotes('all')">🌍 All</button>
+
+            <button class="category-btn" onclick="filterQuotes('life')">💖 Life</button>
+
+            <button class="category-btn" onclick="filterQuotes('education')">📘 Education</button>
+
+            <button class="category-btn" onclick="filterQuotes('motivation')">🔥 Motivation</button>
+
+            <button class="category-btn" onclick="filterQuotes('health')">🍎 Health</button>
+
+            <button class="category-btn" onclick="filterQuotes('wealth')">💰 Wealth</button>
+
+            <button class="category-btn" onclick="filterQuotes('success')">🏆 Success</button>
+
+            <button class="category-btn" onclick="filterQuotes('happiness')">😊 Happiness</button>
+
+        </div>
+
+    </div>
+
+    <div class="stats">
+
+        <div class="card">
+            <h2 id="quoteCount">0</h2>
+            <p>Quotes Viewed</p>
+        </div>
+
+        <div class="card">
+            <h2 id="favoriteCount">0</h2>
+            <p>Favorites Saved</p>
+        </div>
+
+        <div class="card">
+            <h2>365</h2>
+            <p>Daily Motivation</p>
+        </div>
+
+    </div>
+
+    <div class="favorites">
+
+        <h2>⭐ Favorite Quotes</h2>
+
+        <div class="favorite-list" id="favoriteList"></div>
+
+    </div>
+
+    <div class="footer">
+        Designed with ❤️ | Professional Quote App
+    </div>
+
+</div>
+
+<script>
+
+const quotes = [
+
+{
+quote:"Life is what happens when you're busy making other plans.",
+author:"John Lennon",
+category:"life"
+},
+
+{
+quote:"The purpose of our lives is to be happy.",
+author:"Dalai Lama",
+category:"life"
+},
+
+{
+quote:"Education is the most powerful weapon which you can use to change the world.",
+author:"Nelson Mandela",
+category:"education"
+},
+
+{
+quote:"Learning never exhausts the mind.",
+author:"Leonardo da Vinci",
+category:"education"
+},
+
+{
+quote:"Push yourself because no one else is going to do it for you.",
+author:"Unknown",
+category:"motivation"
+},
+
+{
+quote:"Dream big and dare to fail.",
+author:"Norman Vaughan",
+category:"motivation"
+},
+
+{
+quote:"Health is wealth.",
+author:"Virgil",
+category:"health"
+},
+
+{
+quote:"Take care of your body. It's the only place you have to live.",
+author:"Jim Rohn",
+category:"health"
+},
+
+{
+quote:"Wealth consists not in having great possessions, but in having few wants.",
+author:"Epictetus",
+category:"wealth"
+},
+
+{
+quote:"An investment in knowledge pays the best interest.",
+author:"Benjamin Franklin",
+category:"wealth"
+},
+
+{
+quote:"Success usually comes to those who are too busy to be looking for it.",
+author:"Henry David Thoreau",
+category:"success"
+},
+
+{
+quote:"Success is not in what you have, but who you are.",
+author:"Bo Bennett",
+category:"success"
+},
+
+{
+quote:"Happiness depends upon ourselves.",
+author:"Aristotle",
+category:"happiness"
+},
+
+{
+quote:"Happiness is not by chance, but by choice.",
+author:"Jim Rohn",
+category:"happiness"
+},
+
+{
+quote:"Believe you can and you're halfway there.",
+author:"Theodore Roosevelt",
+category:"motivation"
+},
+
+{
+quote:"A healthy outside starts from the inside.",
+author:"Robert Urich",
+category:"health"
+},
+
+{
+quote:"Life becomes easier when you learn to accept the apology you never got.",
+author:"Unknown",
+category:"life"
+},
+
+{
+quote:"The beautiful thing about learning is nobody can take it away from you.",
+author:"B.B. King",
+category:"education"
+},
+
+{
+quote:"Do something today that your future self will thank you for.",
+author:"Sean Patrick Flanery",
+category:"motivation"
+},
+
+{
+quote:"Money grows on the tree of persistence.",
+author:"Japanese Proverb",
+category:"wealth"
+}
+
+];
+
+const quoteText = document.getElementById("quote");
+const authorText = document.getElementById("author");
+const favoriteList = document.getElementById("favoriteList");
+const quoteCount = document.getElementById("quoteCount");
+const favoriteCount = document.getElementById("favoriteCount");
+
+let viewed = localStorage.getItem("viewedQuotes") || 0;
+
+quoteCount.innerText = viewed;
+
+let currentCategory = "all";
+
+function newQuote(){
+
+    let filteredQuotes;
+
+    if(currentCategory === "all"){
+
+        filteredQuotes = quotes;
+
+    }else{
+
+        filteredQuotes = quotes.filter(q => q.category === currentCategory);
+    }
+
+    const random = Math.floor(Math.random() * filteredQuotes.length);
+
+    quoteText.style.opacity = "0";
+
+    setTimeout(()=>{
+
+        quoteText.innerText = `“${filteredQuotes[random].quote}”`;
+
+        authorText.innerText = `— ${filteredQuotes[random].author}`;
+
+        quoteText.style.opacity = "1";
+
+    },300);
+
+    viewed++;
+
+    localStorage.setItem("viewedQuotes", viewed);
+
+    quoteCount.innerText = viewed;
+
+    localStorage.setItem("dailyQuote", JSON.stringify(filteredQuotes[random]));
+}
+
+function filterQuotes(category){
+
+    currentCategory = category;
+
+    let filteredQuotes;
+
+    if(category === "all"){
+
+        filteredQuotes = quotes;
+
+    }else{
+
+        filteredQuotes = quotes.filter(q => q.category === category);
+    }
+
+    const random = Math.floor(Math.random() * filteredQuotes.length);
+
+    quoteText.style.opacity = "0";
+
+    setTimeout(()=>{
+
+        quoteText.innerText = `“${filteredQuotes[random].quote}”`;
+
+        authorText.innerText = `— ${filteredQuotes[random].author}`;
+
+        quoteText.style.opacity = "1";
+
+    },300);
+}
+
+function saveFavorite(){
+
+    const quote = quoteText.innerText;
+    const author = authorText.innerText;
+
+    let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+    favorites.push({quote,author});
+
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+
+    displayFavorites();
+
+    alert("⭐ Quote Saved Successfully");
+}
+
+function displayFavorites(){
+
+    let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+    favoriteList.innerHTML = "";
+
+    favoriteCount.innerText = favorites.length;
+
+    favorites.forEach((item,index)=>{
+
+        favoriteList.innerHTML += `
+
+        <div class="favorite-item">
+
+            <p>${item.quote}</p>
+
+            <small>${item.author}</small><br>
+
+            <button class="delete-btn" onclick="deleteFavorite(${index})">
+                Delete
+            </button>
+
+        </div>
+
+        `;
+    });
+}
+
+function deleteFavorite(index){
+
+    let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+    favorites.splice(index,1);
+
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+
+    displayFavorites();
+}
+
+function copyQuote(){
+
+    const text = `${quoteText.innerText} ${authorText.innerText}`;
+
+    navigator.clipboard.writeText(text);
+
+    alert("📋 Quote Copied");
+}
+
+function shareQuote(){
+
+    const text = `${quoteText.innerText} ${authorText.innerText}`;
+
+    if(navigator.share){
+
+        navigator.share({
+            title:"Inspirational Quote",
+            text:text
+        });
+
+    }else{
+
+        alert("Sharing not supported on this browser");
+    }
+}
+
+function toggleTheme(){
+
+    document.body.classList.toggle("light-mode");
+}
+
+window.onload = ()=>{
+
+    let savedQuote = JSON.parse(localStorage.getItem("dailyQuote"));
+
+    if(savedQuote){
+
+        quoteText.innerText = `“${savedQuote.quote}”`;
+
+        authorText.innerText = `— ${savedQuote.author}`;
+    }
+
+    displayFavorites();
+}
+
+</script>
+
+</body>
+</html>
